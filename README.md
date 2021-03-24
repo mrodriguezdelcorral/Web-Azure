@@ -60,7 +60,7 @@ The distribution package contains the following files:
 	
 Installation
 	The application is hosted in Azure Web App. To access it, enter the following URL in a browser:
-	https://azure-web-ercm.azurewebsites.net
+	https://web-azure-mvrc.azurewebsites.net/index.html
 			
 ---
 Acknowledge:
