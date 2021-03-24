@@ -43,7 +43,7 @@ Usage:
 	In order to access the application, launch your preferred web browser and access to the
 	initial page. 
 	In test environment: http://localhost
-	In production: https://azure-web-ercm.azurewebsites.net	
+	In production: https://web-azure-mvrc.azurewebsites.net/index.html
 
 The distribution package contains the following files:
 
