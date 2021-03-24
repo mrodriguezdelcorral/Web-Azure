@@ -1,0 +1,156 @@
+<!doctype html>
+<html lang="en">
+<!--
+	Author: Maria Rodriguez
+	Class:   Web & Distributed Programming 
+	Description: Maria's sample Dice Roller application.
+-->
+	<head>
+		<meta charset="UTF-8">
+		<title>Yahtzee Game</title>
+		<link rel="stylesheet" href="css/my-style.css">
+		<script src="js/js_functions.js"></script>
+	</head>
+	<body class="mvrc" onload="Initialize()">
+		<div class="topnav">
+			<a href="index.html">Home</a>
+			<a href="yahtzee-game.html">Game</a>
+			<a href="yahtzee-instructions.html">Instructions</a>
+		</div>
+		<div class="header">
+			<h1>Yahtzee Game</h1>
+		</div><br><br>
+		<!-- Buttons to:
+		Roll dices
+		Clear checkboxes used to kepp some dices
+		Reset the game: clear all checkboxes, combobox... and roll dices again
+		-->
+		<button type="button" id="roll" autofocus onclick="HandleDices()">Roll Dice</button>
+		<button type="button" onclick="ClearKepts()">Clear Kepts</button>
+		<button type="reset" onclick="ResetGame()">Reset Game</button><br><br>
+		Six Sided Dice:
+		<!-- Dices values are hidden "input" elements -->
+		<input id="dice1" type="text" value="" size="3" hidden>
+		<input id="dice2" type="text" value="" size="3" hidden>
+		<input id="dice3" type="text" value="" size="3" hidden>
+		<input id="dice4" type="text" value="" size="3" hidden>
+		<input id="dice5" type="text" value="" size="3" hidden>
+		
+		<table class="dices">
+			<tr>
+				<th class="dices"></th>
+				<th class="dices">Dice 1</th>
+				<th class="dices">Dice 2</th>
+				<th class="dices">Dice 3</th>
+				<th class="dices">Dice 4</th>
+				<th class="dices">Dice 5</th>
+			</tr>
+			<tr>
+				<td class="dices">Dice Kept</td>
+				<td class="dices"><input id="diceKept1" type="checkbox" name="diceKept1" value=""></td>
+				<td class="dices"><input id="diceKept2" type="checkbox" name="diceKept2" value=""></td>
+				<td class="dices"><input id="diceKept3" type="checkbox" name="diceKept3" value=""></td>
+				<td class="dices"><input id="diceKept4" type="checkbox" name="diceKept4" value=""></td>
+				<td class="dices"><input id="diceKept5" type="checkbox" name="diceKept5" value=""></td>
+			</tr>
+			<tr>
+				<td class="dices"></td>
+				<td class="dices" id="diceTd1"></td>
+				<td class="dices" id="diceTd2"></td>
+				<td class="dices" id="diceTd3"></td>
+				<td class="dices" id="diceTd4"></td>
+				<td class="dices" id="diceTd5"></td>
+			</tr>
+		</table>
+		<br>
+		<label>Game Card:</label>
+
+		<!-- Combobox to select where to apply points -->
+		<select id="options" name="options" onChange="gameCards()">
+			<option id="opt1" value="1">Aces</option>
+			<option id="opt2" value="2">Twos</option>
+			<option id="opt3" value="3">Threes</option>
+			<option id="opt4" value="4">Fours</option>
+			<option id="opt5" value="5">Fives</option>
+			<option id="opt6" value="6">Sixes</option>
+			<option id="opt7" value="7">Three of a Kind</option>
+			<option id="opt8" value="8">Four of a Kind</option>
+			<option id="opt9" value="9">Full House</option>
+			<option id="opt10" value="10">Small Straight</option>
+			<option id="opt11" value="11">Large Straight</option>
+			<option id="opt12" value="12">Yahtzee</option>
+			<option id="opt13" value="13">Chance</option>
+		</select>
+		<br>
+		<br>
+		<!-- Game card to annotate points -->
+		<table class="scores">
+			<tr>
+				<th class="scores1">Categories</th>
+				<th class="scores2">Scores</th>
+			</tr>
+			<tr>
+				<td class="scores1">Aces</td>
+				<td class="scores2"><input id="scr1" type="text" value="" size="3" disabled></td>
+			</tr>
+			<tr>
+				<td class="scores1">Twos</td>
+				<td class="scores2"><input id="scr2" type="text" value="" size="3" disabled></td>
+			</tr>
+			<tr>
+				<td class="scores1">Threes</td>
+				<td class="scores2"><input id="scr3" type="text" value="" size="3" disabled></td>
+			</tr>
+			<tr>
+				<td class="scores1">Fours</td>
+				<td class="scores2"><input id="scr4" type="text" value="" size="3" disabled></td>
+			</tr>
+			<tr>
+				<td class="scores1">Fives</td>
+				<td class="scores2"><input id="scr5" type="text" value="" size="3" disabled></td>
+			</tr>
+			<tr>
+				<td class="scores1">Sixes</td>
+				<td class="scores2"><input id="scr6" type="text" value="" size="3" disabled></td>
+			</tr>
+			<tr>
+				<td class="scores1">Three of a Kind</td>
+				<td class="scores2"><input id="scr7" type="text" value="" size="3" disabled></td>
+			</tr>
+			<tr>
+				<td class="scores1">Four of a Kind</td>
+				<td class="scores2"><input id="scr8" type="text" value="" size="3" disabled></td>
+			</tr>
+			<tr>
+				<td class="scores1">Full House</td>
+				<td class="scores2"><input id="scr9" type="text" value="" size="3" disabled></td>
+			</tr>
+			<tr>
+				<td class="scores1">Small Straight</td>
+				<td class="scores2"><input id="scr10" type="text" value="" size="3" disabled></td>
+			</tr>
+			<tr>
+				<td class="scores1">Large Straight</td>
+				<td class="scores2"><input id="scr11" type="text" value="" size="3" disabled></td>
+			</tr>
+			<tr>
+				<td class="scores1">Yahtzee</td>
+				<td class="scores2"><input id="scr12" type="text" value="" size="3" disabled></td>
+			</tr>
+			<tr>
+				<td class="scores1">Chance</td>
+				<td class="scores2"><input id="scr13" type="text" value="" size="3" disabled></td>
+			</tr>
+		</table>
+		<br>
+		Upper Section Bonus:<input id="upper" class="tot_scores" type="text" value="" size="3" disabled>
+		<b>Total Points:</b><input id="totals" class="tot_scores" type="text" value="" size="3" disabled>
+
+		<br>
+		<br>
+		<div class="footer">
+			<a href ="index.html">Home</a>
+			Webmaster: <a href="mailto:mariavictoriavrod@lewisu.edu">mariavictoriavrod@lewisu.edu</a>
+		</div>
+	</body>
+</html>
